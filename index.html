@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro</title>
+
+<style>
+  body {
+    font-family: Arial;
+    background: #f1f5f9;
+    text-align: center;
+  }
+
+  .container {
+    background: white;
+    padding: 30px;
+    margin: 50px auto;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+  }
+
+  input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  button {
+    padding: 10px;
+    width: 100%;
+    background: #1e40af;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>Cadastro</h2>
+
+  <input type="text" id="nome" placeholder="Digite seu nome">
+  <input type="number" id="idade" placeholder="Digite sua idade">
+
+  <button onclick="validar()">Enviar</button>
+
+  <p id="mensagem"></p>
+
+</div>
+
+<script>
+function validar() {
+  var nome = document.getElementById("nome").value;
+  var idade = document.getElementById("idade").value;
+
+  if (nome == "" || idade == "") {
+    document.getElementById("mensagem").innerText = "Preencha todos os campos!";
+  } else if (idade < 18) {
+    document.getElementById("mensagem").innerText = "Você é menor de idade.";
+  } else {
+    document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
+  }
+}
+</script>
+
+</body>
+</html>
