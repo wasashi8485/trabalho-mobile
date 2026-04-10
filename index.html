@@ -7,35 +7,55 @@
 
 <style>
   body {
-    font-family: Arial;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #f1f5f9;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
   }
 
   .container {
     background: white;
     padding: 30px;
-    margin: 50px auto;
-    width: 300px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
+    width: 350px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
   }
 
+  h2 { color: #1e40af; margin-bottom: 20px; }
+
   input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    box-sizing: border-box; /* Garante que o padding não quebre a largura */
   }
 
   button {
-    padding: 10px;
+    padding: 12px;
     width: 100%;
     background: #1e40af;
     color: white;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background 0.3s;
   }
 
+  button:hover { background: #1e3a8a; }
+
+  #mensagem {
+    margin-top: 20px;
+    font-weight: 500;
+    color: #334155;
+  }
 </style>
 
 </head>
@@ -43,29 +63,48 @@
 <body>
 
 <div class="container">
-
   <h2>Cadastro</h2>
 
   <input type="text" id="nome" placeholder="Digite seu nome">
+  <input type="email" id="email" placeholder="Digite seu e-mail">
   <input type="number" id="idade" placeholder="Digite sua idade">
 
   <button onclick="validar()">Enviar</button>
 
   <p id="mensagem"></p>
-
 </div>
 
 <script>
 function validar() {
-  var nome = document.getElementById("nome").value;
+  // Captura dos valores
+  var nome = document.getElementById("nome").value.trim();
+  var email = document.getElementById("email").value.trim();
   var idade = document.getElementById("idade").value;
+  var msgElemento = document.getElementById("mensagem");
 
-  if (nome == "" || idade == "") {
-    document.getElementById("mensagem").innerText = "Preencha todos os campos!";
-  } else if (idade < 18) {
-    document.getElementById("mensagem").innerText = "Você é menor de idade.";
+  // 1. Validação de campos vazios
+  if (nome === "" || email === "" || idade === "") {
+    msgElemento.innerText = "⚠️ Por favor, preencha todos os campos!";
+    msgElemento.style.color = "red";
+    return;
+  }
+
+  // 2. Validação de E-mail (Regex básico)
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    msgElemento.innerText = "📧 Por favor, insira um e-mail válido.";
+    msgElemento.style.color = "red";
+    return;
+  }
+
+  // 3. Validação de Idade
+  if (idade < 18) {
+    msgElemento.innerText = "Olá, " + nome + "! Você precisa ter mais de 18 anos para se cadastrar.";
+    msgElemento.style.color = "orange";
   } else {
-    document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
+    // Mensagem de sucesso personalizada
+    msgElemento.innerText = "✅ Sucesso, " + nome + "! Seu cadastro foi enviado para " + email + ".";
+    msgElemento.style.color = "green";
   }
 }
 </script>
